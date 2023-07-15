@@ -1,7 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 
 const galleryElem = document.querySelector(".gallery");
-galleryElem.addEventListener("click", (event) => event.preventDefault());
 
 const imgListArr = galleryItems.map(
   (image) =>

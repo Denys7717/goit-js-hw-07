@@ -7,13 +7,27 @@ function showImg(event) {
   event.preventDefault();
 
   if (event.target.className === "gallery__image") {
-    const instance = basicLightbox.create(`
+    const instance = basicLightbox.create(
+      `
     <img src="${event.target.dataset.source}" width="800" height="600">
-`);
+`,
+      {
+        onShow: () => {
+          document.addEventListener("keydown", closeModal);
+        },
+        onClose: () => {
+          document.removeEventListener("keydown", closeModal);
+        },
+      }
+    );
     instance.show();
-    galleryElem.addEventListener("keydown", (evt) => {
-      if (evt.code === "Escape") instance.close();
-    });
+
+    function closeModal(evt) {
+      if (evt.code !== "Escape") {
+        return;
+      }
+      instance.close();
+    }
   }
 }
 
